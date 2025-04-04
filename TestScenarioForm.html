@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+    body { font-family: sans-serif; }
+    label { display: block; margin-bottom: 5px; }
+    textarea { width: 300px; height: 100px; padding: 5px; margin-bottom: 10px; }
+    button { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+    #status { margin-top: 10px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Test Case Generator</h1>
+  <label for="testScenarios">Enter Test Scenarios (one per line):</label>
+  <textarea id="testScenarios" name="testScenarios"></textarea>
+  <button onclick="generateTestCases()">Generate Test Cases</button>
+  <div id="status"></div>
+
+  <script>
+    function generateTestCases() {
+      var scenariosText = document.getElementById("testScenarios").value;
+      var scenarios = scenariosText.split("\n").filter(function(scenario) {
+        return scenario.trim() !== ""; // Remove empty lines
+      });
+
+      if (scenarios.length === 0) {
+        document.getElementById("status").innerHTML = "Please enter at least one test scenario.";
+        return;
+      }
+
+      google.script.run
+        .withSuccessHandler(testCasesGenerated)
+        .withFailureHandler(showError)
+        .generateTestCasesFromUI(scenarios); // Pass the array of scenarios
+
+      document.getElementById("status").innerHTML = "Generating test cases...";
+    }
+
+    function testCasesGenerated(result) {
+      document.getElementById("status").innerHTML = result; // Or display more detailed feedback
+    }
+
+    function showError(error) {
+      document.getElementById("status").innerHTML = "Error: " + error.message;
+    }
+  </script>
+</body>
+</html>
