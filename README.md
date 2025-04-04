@@ -62,7 +62,7 @@ Navigate to:
 ## 📬 Feedback & Contributions
 
 Found a bug? Want to improve or suggest a feature?  
-Feel free to submit a issues/requets. Contributions are welcome! 🙌
+Feel free to submit a issues/requests. Contributions are welcome! 🙌
 
 ---
 
